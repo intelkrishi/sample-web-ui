@@ -913,6 +913,14 @@ const apiResponses = {
           totalCount: 100
         }
       }
+    },
+    power: {
+      success: {
+        code: 200,
+        response: [
+          'Windows'
+        ]
+      }
     }
   },
   tags: {

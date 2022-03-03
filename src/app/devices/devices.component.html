@@ -9,13 +9,13 @@
         </button>
     </div>
     <div [fxHide]="selection.isEmpty()">
-        <button mat-icon-button matTooltip="Power up the device" (click)="$event.stopPropagation(); bulkPowerAction(2)">
+        <button mat-icon-button matTooltip="Power up the device" data-cy="powerUpBulk" (click)="$event.stopPropagation(); bulkPowerAction(2)">
             <mat-icon>power</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Power off the device" (click)="$event.stopPropagation(); bulkPowerAction(8)">
+        <button mat-icon-button matTooltip="Power off the device " data-cy="powerOffBulk" (click)="$event.stopPropagation(); bulkPowerAction(8)">
             <mat-icon>power_off</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Restart the device" (click)="$event.stopPropagation(); bulkPowerAction(5)">
+        <button mat-icon-button matTooltip="Restart the device" data-cy="powerCycleBulk" (click)="$event.stopPropagation(); bulkPowerAction(5)">
             <mat-icon>restart_alt</mat-icon>
         </button>
     </div>
@@ -56,9 +56,9 @@
             </ng-container>
 
             <!-- host Column -->
-            <ng-container matColumnDef="hostname">
+            <ng-container matColumnDef="hostname" data-cy="hostname">
                 <mat-header-cell *matHeaderCellDef> Hostname </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{ element.hostname }} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{ element.hostname }}  </mat-cell>
             </ng-container>
 
             <!-- guid Column -->
@@ -88,13 +88,13 @@
                 <mat-header-cell *matHeaderCellDef fxFlex="150px"> Actions</mat-header-cell>
                 <mat-cell *matCellDef="let element" fxFlex="150px">
                     <div [fxHide]="selection.isSelected(element)">
-                        <button mat-icon-button matTooltip="Power up the device" (click)="$event.stopPropagation(); sendPowerAction(element.guid,2)">
+                        <button mat-icon-button matTooltip="Power up the device" data-cy="powerOn" (click)="$event.stopPropagation(); sendPowerAction(element.guid,2)">
                             <mat-icon>power</mat-icon>
                         </button>
-                        <button mat-icon-button matTooltip="Power off the device" (click)="$event.stopPropagation(); sendPowerAction(element.guid,8)">
+                        <button mat-icon-button matTooltip="Power off the device" data-cy="powerOff" (click)="$event.stopPropagation(); sendPowerAction(element.guid,8)">
                             <mat-icon>power_off</mat-icon>
                         </button>
-                        <button mat-icon-button matTooltip="Restart the device" (click)="$event.stopPropagation(); sendPowerAction(element.guid,5)">
+                        <button mat-icon-button matTooltip="Restart the device" data-cy="powerCycle" (click)="$event.stopPropagation(); sendPowerAction(element.guid,5)">
                             <mat-icon>restart_alt</mat-icon>
                         </button>
                     </div>
@@ -103,8 +103,8 @@
             <ng-container matColumnDef="notification">
                 <mat-header-cell *matHeaderCellDef fxFlex="50px"></mat-header-cell>
                 <mat-cell  *matCellDef="let element" fxFlex="50px">
-                    <mat-icon color="primary" matTooltip="Power action sent successfully" *ngIf="element.StatusMessage === 'SUCCESS' ">check_circle</mat-icon>
-                    <mat-icon color="warn" matTooltip="Power action sent, however device responded with not ready" *ngIf="element.StatusMessage === 'NOT_READY'">warning</mat-icon>
+                    <mat-icon color="primary" matTooltip="Power action sent successfully" data-cy="powerSuccess" *ngIf="element.StatusMessage === 'SUCCESS' ">check_circle</mat-icon>
+                    <mat-icon color="warn" matTooltip="Power action sent, however device responded with not ready" data-cy="powerNotSuccess" *ngIf="element.StatusMessage === 'NOT_READY'">warning</mat-icon>
                     <mat-icon color="warn" matTooltip="Error sending power action" *ngIf="element.StatusMessage === 'ERROR'">error</mat-icon>
                 </mat-cell>
             </ng-container>
