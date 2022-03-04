@@ -73,7 +73,107 @@ describe('Test Device Page', () => {
 
   //TODO: Test if the first device is powered on. Currently the tests assume it is on.
 
-    it('power off the first device', () => {
+  //   it('power off the first device', () => {
+  //   cy.myIntercept('GET', /tags$/, {
+  //     statusCode: apiResponses.tags.getAll.success.code,
+  //     body: apiResponses.tags.getAll.success.response
+  //   }).as('get-tags')
+
+  //   cy.myIntercept('GET', 'devices?$top=25&$skip=0&$count=true', {
+  //     statusCode: apiResponses.devices.getAll.success.code,
+  //     body: apiResponses.devices.getAll.success.response
+  //   }).as('get-devices')
+
+  //   cy.myIntercept('POST', /power/, {
+  //     statusCode: apiResponses.devices.power.success.code,
+  //     body: apiResponses.devices.power.success.response
+  //   }).as('post-power')
+
+  //   cy.goToPage('Devices')
+  //   cy.wait('@get-devices').its('response.statusCode').should('eq', 200)
+  //   cy.wait('@get-tags').its('response.statusCode').should('eq', 200)
+
+  //   cy.get('[data-cy="powerOff"]').first().click()
+  //   cy.wait(1000)
+  //   cy.get('[data-cy="powerSuccess"]').should('be.visible')
+  // })
+
+  // it('power off a powered off device', () => {
+  //   cy.myIntercept('GET', /tags$/, {
+  //     statusCode: apiResponses.tags.getAll.success.code,
+  //     body: apiResponses.tags.getAll.success.response
+  //   }).as('get-tags')
+
+  //   cy.myIntercept('GET', 'devices?$top=25&$skip=0&$count=true', {
+  //     statusCode: apiResponses.devices.getAll.success.code,
+  //     body: apiResponses.devices.getAll.success.response
+  //   }).as('get-devices')
+
+  //   cy.myIntercept('POST', /power/, {
+  //     statusCode: apiResponses.devices.power.success.code,
+  //     body: apiResponses.devices.power.success.response
+  //   }).as('post-power')
+
+  //   cy.goToPage('Devices')
+  //   cy.wait('@get-devices').its('response.statusCode').should('eq', 200)
+  //   cy.wait('@get-tags').its('response.statusCode').should('eq', 200)
+
+  //   cy.get('[data-cy="powerOff"]').first().click()
+  //   cy.wait(1000)
+  //   cy.get('[data-cy="powerNotSuccess"]').should('be.visible')
+  // })
+
+  // it('power on the first device', () => {
+  //   cy.myIntercept('GET', /tags$/, {
+  //     statusCode: apiResponses.tags.getAll.success.code,
+  //     body: apiResponses.tags.getAll.success.response
+  //   }).as('get-tags')
+
+  //   cy.myIntercept('GET', 'devices?$top=25&$skip=0&$count=true', {
+  //     statusCode: apiResponses.devices.getAll.success.code,
+  //     body: apiResponses.devices.getAll.success.response
+  //   }).as('get-devices')
+
+  //   cy.myIntercept('POST', /power/, {
+  //     statusCode: apiResponses.devices.power.success.code,
+  //     body: apiResponses.devices.power.success.response
+  //   }).as('post-power')
+
+  //   cy.goToPage('Devices')
+  //   cy.wait('@get-devices').its('response.statusCode').should('eq', 200)
+  //   cy.wait('@get-tags').its('response.statusCode').should('eq', 200)
+
+  //   cy.get('[data-cy="powerOn"]').first().click()
+  //   cy.wait(1000)
+  //   cy.get('[data-cy="powerSuccess"]').should('be.visible')
+  // })
+
+  // it('power cycle the first device', () => {
+  //   cy.myIntercept('GET', /tags$/, {
+  //     statusCode: apiResponses.tags.getAll.success.code,
+  //     body: apiResponses.tags.getAll.success.response
+  //   }).as('get-tags')
+
+  //   cy.myIntercept('GET', 'devices?$top=25&$skip=0&$count=true', {
+  //     statusCode: apiResponses.devices.getAll.success.code,
+  //     body: apiResponses.devices.getAll.success.response
+  //   }).as('get-devices')
+
+  //   cy.myIntercept('POST', /power/, {
+  //     statusCode: apiResponses.devices.power.success.code,
+  //     body: apiResponses.devices.power.success.response
+  //   }).as('post-power')
+
+  //   cy.goToPage('Devices')
+  //   cy.wait('@get-devices').its('response.statusCode').should('eq', 200)
+  //   cy.wait('@get-tags').its('response.statusCode').should('eq', 200)
+
+  //   cy.get('[data-cy="powerCycle"]').first().click()
+  //   cy.wait('@post-power').its('response.statusCode').should('eq', 200)
+  //   cy.wait(1000)
+  //   cy.get('[data-cy="powerSuccess"]').should('be.visible')
+  // })
+  it('batch power off the devices', () => {
     cy.myIntercept('GET', /tags$/, {
       statusCode: apiResponses.tags.getAll.success.code,
       body: apiResponses.tags.getAll.success.response
@@ -93,12 +193,15 @@ describe('Test Device Page', () => {
     cy.wait('@get-devices').its('response.statusCode').should('eq', 200)
     cy.wait('@get-tags').its('response.statusCode').should('eq', 200)
 
-    cy.get('[data-cy="powerOff"]').first().click()
+    cy.get('[type="checkbox"]').first().check({ force: true })
+    // cy.get('[data-cy="allHostnames"]').check()
+    cy.get('[data-cy="powerOffBulk"]').click()
+
+    cy.wait('@post-power').its('response.statusCode').should('eq', 200)
     cy.wait(1000)
     cy.get('[data-cy="powerSuccess"]').should('be.visible')
   })
-
-  it('power off a powered off device', () => {
+  it('batch power on the devices', () => {
     cy.myIntercept('GET', /tags$/, {
       statusCode: apiResponses.tags.getAll.success.code,
       body: apiResponses.tags.getAll.success.response
@@ -118,57 +221,10 @@ describe('Test Device Page', () => {
     cy.wait('@get-devices').its('response.statusCode').should('eq', 200)
     cy.wait('@get-tags').its('response.statusCode').should('eq', 200)
 
-    cy.get('[data-cy="powerOff"]').first().click()
-    cy.wait(1000)
-    cy.get('[data-cy="powerNotSuccess"]').should('be.visible')
-  })
+    cy.get('[type="checkbox"]').first().check({ force: true })
+    // cy.get('[data-cy="allHostnames"]').check()
+    cy.get('[data-cy="powerUpBulk"]').click()
 
-  it('power on the first device', () => {
-    cy.myIntercept('GET', /tags$/, {
-      statusCode: apiResponses.tags.getAll.success.code,
-      body: apiResponses.tags.getAll.success.response
-    }).as('get-tags')
-
-    cy.myIntercept('GET', 'devices?$top=25&$skip=0&$count=true', {
-      statusCode: apiResponses.devices.getAll.success.code,
-      body: apiResponses.devices.getAll.success.response
-    }).as('get-devices')
-
-    cy.myIntercept('POST', /power/, {
-      statusCode: apiResponses.devices.power.success.code,
-      body: apiResponses.devices.power.success.response
-    }).as('post-power')
-
-    cy.goToPage('Devices')
-    cy.wait('@get-devices').its('response.statusCode').should('eq', 200)
-    cy.wait('@get-tags').its('response.statusCode').should('eq', 200)
-
-    cy.get('[data-cy="powerOn"]').first().click()
-    cy.wait(1000)
-    cy.get('[data-cy="powerSuccess"]').should('be.visible')
-  })
-
-  it('power cycle the first device', () => {
-    cy.myIntercept('GET', /tags$/, {
-      statusCode: apiResponses.tags.getAll.success.code,
-      body: apiResponses.tags.getAll.success.response
-    }).as('get-tags')
-
-    cy.myIntercept('GET', 'devices?$top=25&$skip=0&$count=true', {
-      statusCode: apiResponses.devices.getAll.success.code,
-      body: apiResponses.devices.getAll.success.response
-    }).as('get-devices')
-
-    cy.myIntercept('POST', /power/, {
-      statusCode: apiResponses.devices.power.success.code,
-      body: apiResponses.devices.power.success.response
-    }).as('post-power')
-
-    cy.goToPage('Devices')
-    cy.wait('@get-devices').its('response.statusCode').should('eq', 200)
-    cy.wait('@get-tags').its('response.statusCode').should('eq', 200)
-
-    cy.get('[data-cy="powerCycle"]').first().click()
     cy.wait('@post-power').its('response.statusCode').should('eq', 200)
     cy.wait(1000)
     cy.get('[data-cy="powerSuccess"]').should('be.visible')
