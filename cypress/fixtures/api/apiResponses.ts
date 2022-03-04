@@ -917,9 +917,12 @@ const apiResponses = {
     power: {
       success: {
         code: 200,
-        response: [
-          'Windows'
-        ]
+        response: {
+          ResponseBody: {
+            returnValue: 0,
+            returnValueStr: 'SUCCESS'
+          }
+        }
       }
     }
   },
