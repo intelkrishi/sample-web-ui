@@ -5,6 +5,9 @@
 // Tests the creation of a profile
 import { apiResponses } from '../../fixtures/api/apiResponses'
 
+const testDelayPowerOn = 30000
+const testDelayPowerOff = 5000
+
 // ---------------------------- Test section ----------------------------
 
 describe('Test Device Page', () => {
@@ -70,25 +73,25 @@ describe('Test Device Page', () => {
 
     cy.get('mat-table mat-row:first').click()
   })
-  // TODO: Test if the first device is powered on. Currently the tests assume it is on.
-  it('Check state of first device', () => {
-    cy.myIntercept('GET', /tags$/, {
-      statusCode: apiResponses.tags.getAll.success.code,
-      body: apiResponses.tags.getAll.success.response
-    }).as('get-tags')
+  // // TODO: Test if the first device is powered on. Currently the tests assume it is on.
+  // it('Check state of first device', () => {
+  //   cy.myIntercept('GET', /tags$/, {
+  //     statusCode: apiResponses.tags.getAll.success.code,
+  //     body: apiResponses.tags.getAll.success.response
+  //   }).as('get-tags')
 
-    cy.myIntercept('GET', 'devices?$top=25&$skip=0&$count=true', {
-      statusCode: apiResponses.devices.getAll.success.code,
-      body: apiResponses.devices.getAll.success.response
-    }).as('get-devices')
+  //   cy.myIntercept('GET', 'devices?$top=25&$skip=0&$count=true', {
+  //     statusCode: apiResponses.devices.getAll.success.code,
+  //     body: apiResponses.devices.getAll.success.response
+  //   }).as('get-devices')
 
-    cy.goToPage('Devices')
-    cy.wait('@get-devices').its('response.statusCode').should('eq', 200)
-    cy.wait('@get-tags').its('response.statusCode').should('eq', 200)
+  //   cy.goToPage('Devices')
+  //   cy.wait('@get-devices').its('response.statusCode').should('eq', 200)
+  //   cy.wait('@get-tags').its('response.statusCode').should('eq', 200)
 
-    cy.contains('Connected').first()
-    cy.contains('Power: On').first()
-  })
+  //   cy.contains('Connected').first()
+  //   cy.contains('Power: On').first()
+  // })
   it('power off the first device', () => {
     cy.myIntercept('GET', /tags$/, {
       statusCode: apiResponses.tags.getAll.success.code,
@@ -110,8 +113,10 @@ describe('Test Device Page', () => {
     cy.wait('@get-tags').its('response.statusCode').should('eq', 200)
 
     cy.get('[data-cy="powerOff"]').first().click()
-    cy.get('[data-cy="powerSuccess"]').should('be.visible')
-    cy.wait(5000)
+    if (Cypress.env('ISOLATE').charAt(0).toLowerCase() !== 'y') {
+      cy.get('[data-cy="powerSuccess"]').should('be.visible')
+      cy.wait(testDelayPowerOff)
+    }
   })
 
   it('power off a powered off device', () => {
@@ -135,8 +140,9 @@ describe('Test Device Page', () => {
     cy.wait('@get-tags').its('response.statusCode').should('eq', 200)
 
     cy.get('[data-cy="powerOff"]').first().click()
-    cy.get('[data-cy="powerNotSuccess"]').should('be.visible')
-    cy.wait(5000)
+    if (Cypress.env('ISOLATE').charAt(0).toLowerCase() !== 'y') {
+      cy.get('[data-cy="powerNotSuccess"]').should('be.visible')
+    }
   })
 
   it('power on the first device', () => {
@@ -160,8 +166,10 @@ describe('Test Device Page', () => {
     cy.wait('@get-tags').its('response.statusCode').should('eq', 200)
 
     cy.get('[data-cy="powerOn"]').first().click()
-    cy.get('[data-cy="powerSuccess"]').should('be.visible')
-    cy.wait(5000)
+    if (Cypress.env('ISOLATE').charAt(0).toLowerCase() !== 'y') {
+      cy.get('[data-cy="powerSuccess"]').should('be.visible')
+      cy.wait(testDelayPowerOn)
+    }
   })
 
   it('power cycle the first device', () => {
@@ -186,8 +194,10 @@ describe('Test Device Page', () => {
 
     cy.get('[data-cy="powerCycle"]').first().click()
     cy.wait('@post-power').its('response.statusCode').should('eq', 200)
-    cy.get('[data-cy="powerSuccess"]').should('be.visible')
-    cy.wait(10000)
+    if (Cypress.env('ISOLATE').charAt(0).toLowerCase() !== 'y') {
+      cy.get('[data-cy="powerSuccess"]').should('be.visible')
+      cy.wait(testDelayPowerOn)
+    }
   })
   it('batch power off the devices', () => {
     cy.myIntercept('GET', /tags$/, {
@@ -213,7 +223,9 @@ describe('Test Device Page', () => {
     cy.get('[data-cy="powerOffBulk"]').click()
 
     cy.wait('@post-power').its('response.statusCode').should('eq', 200)
-    cy.wait(5000)
+    if (Cypress.env('ISOLATE').charAt(0).toLowerCase() !== 'y') {
+      cy.wait(testDelayPowerOff)
+    }
     // TODO: This line is not working on Bulk tests
     // cy.get('[data-cy="powerSuccess"]').should('be.visible')
   })
@@ -242,7 +254,9 @@ describe('Test Device Page', () => {
     cy.get('[data-cy="powerUpBulk"]').click()
 
     cy.wait('@post-power').its('response.statusCode').should('eq', 200)
-    cy.wait(5000)
+    if (Cypress.env('ISOLATE').charAt(0).toLowerCase() !== 'y') {
+      cy.wait(testDelayPowerOn)
+    }
     // TODO: This line is not working on Bulk tests
     // cy.get('[data-cy="powerSuccess"]').should('be.visible')
   })
