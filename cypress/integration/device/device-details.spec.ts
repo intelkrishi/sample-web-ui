@@ -80,12 +80,12 @@ describe('Test device details page', () => {
     cy.get('[data-cy="bankMaxClockSpeed"]').first().should('not.be.empty')
     cy.get('[data-cy="bankSerialNumber"]').first().should('not.be.empty')
 
-    // Audit Log
+    // Audit log entries
+    cy.get('[data-cy="auditLogEntry"]').its('length').should('be.gt', 0)
 
-    // Event Log
-    
-    // cy.get('[data-cy="eventLog"]').click()
-    // cy.get('[data-cy="auditLog"]').click()
+    // Event log entries
+    cy.contains('Event Log').click()
+    cy.get('[data-cy="eventLogEntry"]').its('length').should('be.gt', 0)
 
     // cy.get('mat-select').click()
     // cy.get('span').contains('none').click()
