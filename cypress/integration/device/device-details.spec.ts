@@ -55,12 +55,26 @@ describe('Test device details page', () => {
     cy.wait('@get-auditlog').its('response.statusCode').should('eq', 200)
     cy.wait('@get-features').its('response.statusCode').should('eq', 200)
 
-    cy.get('mat-select').click()
-    cy.get('span').contains('none').click()
-    cy.wait('@post-features').should((req) => {
-      expect(req.request.method).to.equal('POST')
-      expect(req.request.body.userConsent).to.equal('none')
-      expect(req.response.statusCode).to.equal(200)
-    })
+    cy.get('[data-cy="chipVersion"]').should('not.be.empty')
+    cy.get('[data-cy="manufacturer"]').should('not.be.empty')
+    cy.get('[data-cy="model"]').should('not.be.empty')
+    cy.get('[data-cy="serialNumber"]').should('not.be.empty')
+    cy.get('[data-cy="version"]').should('not.be.empty')
+    cy.get('[data-cy="amtVersion"]').should('not.be.empty')
+
+    cy.get('[data-cy="provisioningMode"]').should('not.be.empty')
+
+    cy.get('[data-cy="biosManufacturer"]').should('not.be.empty')
+    cy.get('[data-cy="biosVersion"]').should('not.be.empty')
+    cy.get('[data-cy="biosReleaseData"]').should('not.be.empty')
+    cy.get('[data-cy="biosTargetOS"]').should('not.be.empty')
+
+    // cy.get('mat-select').click()
+    // cy.get('span').contains('none').click()
+    // cy.wait('@post-features').should((req) => {
+    //   expect(req.request.method).to.equal('POST')
+    //   expect(req.request.body.userConsent).to.equal('none')
+    //   expect(req.response.statusCode).to.equal(200)
+    // })
   })
 })

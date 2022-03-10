@@ -1,3 +1,4 @@
+
 <app-device-toolbar [isLoading]="isLoading"></app-device-toolbar>
 <mat-sidenav-container autosize>
     
@@ -45,7 +46,7 @@
                                     <p>CPU: </p>
                                 </div>
                                 <div fxFlex="75" fxLayoutAlign="end">
-                                    <span class="mat-h3"> {{chip.Version}}</span>
+                                    <span class="mat-h3" data-cy="chipVersion"> {{chip.Version}}</span>
                                 </div>
                             </div>
                         </div>
@@ -53,31 +54,31 @@
                             <p>Manufacturer: </p>
                         </div>
                         <div fxFlex="50" fxLayoutAlign="end">
-                            <span class="mat-h3">{{hwInfo?.CIM_Chassis?.response?.Manufacturer}}</span>
+                            <span class="mat-h3" data-cy="manufacturer"> {{hwInfo?.CIM_Chassis?.response?.Manufacturer}}</span>
                         </div>
                         <div fxFlex="50">
                             <p>Model: </p>
                         </div>
                         <div fxFlex="50" fxLayoutAlign="end">
-                            <span class="mat-h3"> {{hwInfo?.CIM_Chassis?.response?.Model}}</span>
+                            <span class="mat-h3" data-cy="model"> {{hwInfo?.CIM_Chassis?.response?.Model}}</span>
                         </div>
                         <div fxFlex="50">
                             <p>Serial No:</p>
                         </div>
                         <div fxFlex="50" fxLayoutAlign="end">
-                            <span class="mat-h3"> {{hwInfo?.CIM_Chassis?.response?.SerialNumber}}</span>
+                            <span class="mat-h3" data-cy="serialNumber"> {{hwInfo?.CIM_Chassis?.response?.SerialNumber}}</span>
                         </div>
                         <div fxFlex="50">
                             <p>Version: </p>
                         </div>
                         <div fxFlex="50" fxLayoutAlign="end">
-                            <span class="mat-h3">{{hwInfo?.CIM_Chassis?.response?.Version}}</span>
+                            <span class="mat-h3" data-cy="version">{{hwInfo?.CIM_Chassis?.response?.Version}}</span>
                         </div>
                         <div fxFlex="50">
                             <p>AMT Version: </p>
                         </div>
                         <div fxFlex="50" fxLayoutAlign="end">
-                            <span class="mat-h3">{{amtVersion?.CIM_SoftwareIdentity?.responses[3].VersionString}}</span>
+                            <span class="mat-h3" data-cy="amtVersion">{{amtVersion?.CIM_SoftwareIdentity?.responses[3].VersionString}}</span>
                         </div>
                     </div>
                 </mat-card-content>
@@ -95,7 +96,7 @@
                         <div fxFlex="50">
                             <p>Provisioning Mode:</p>
                         </div>
-                        <div fxFlex="50" fxLayoutAlign="end">
+                        <div fxFlex="50" fxLayoutAlign="end" data-cy="provisioningMode">
                             {{parseProvisioningMode(amtVersion?.AMT_SetupAndConfigurationService?.response?.ProvisioningMode)}} 
                         </div>
                         <div fxFlex="50">
@@ -141,19 +142,19 @@
                             <p>Manufacturer: </p>
                         </div>
                         <div fxFlex="50" fxLayoutAlign="end">
-                            <span class="mat-h3">{{hwInfo?.CIM_BIOSElement?.response?.Manufacturer}}</span>
+                            <span class="mat-h3" data-cy="biosManufacturer">{{hwInfo?.CIM_BIOSElement?.response?.Manufacturer}}</span>
                         </div>
                         <div fxFlex="50">
                             <p>Version:</p>
                         </div>
-                        <div fxFlex="50" fxLayoutAlign="end"><span class="mat-h3">
+                        <div fxFlex="50" fxLayoutAlign="end"><span class="mat-h3" data-cy="biosVersion">
                                 {{hwInfo?.CIM_BIOSElement?.response?.Version}}</span>
                         </div>
                         <div fxFlex="50">
                             <p>Release Date:</p>
                         </div>
                         <div fxFlex="50" fxLayoutAlign="end">
-                            <span class="mat-h3">{{hwInfo?.CIM_BIOSElement?.response?.ReleaseDate.Datetime |
+                            <span class="mat-h3" data-cy="biosReleaseData">{{hwInfo?.CIM_BIOSElement?.response?.ReleaseDate.Datetime |
                                 amDateFormat:'LLL'}}</span>
                         </div>
                         <div fxFlex="50">
@@ -161,7 +162,7 @@
                             <p>Target OS:</p>
                         </div>
                         <div fxFlex="50" fxLayoutAlign="end">
-                            <span class="mat-h3">
+                            <span class="mat-h3" data-cy="biosTargetOS">
                                 {{targetOS[hwInfo?.CIM_BIOSElement?.response?.TargetOperatingSystem || 0] }}
                             </span>
                         </div>
