@@ -188,26 +188,26 @@
                             <p>Slot: </p>
                         </div>
                         <div fxFlex="50" fxLayoutAlign="end">
-                            <span class="mat-h3"> {{bank.BankLabel}}</span>
+                            <span class="mat-h3" data-cy="bankLabel"> {{bank.BankLabel}}</span>
                         </div>
                         <div fxFlex="50">
                             <p>Capacity: </p>
                         </div>
                         <div fxFlex="50" fxLayoutAlign="end">
-                            <span class="mat-h3"> {{bank.Capacity / 1024 / 1024 / 1024 }} GB</span>
+                            <span class="mat-h3" data-cy="bankCapacity"> {{bank.Capacity / 1024 / 1024 / 1024 }} GB</span>
                         </div>
                         <div fxFlex="50">
                             <p>Clock Speed(Max):</p>
                         </div>
                         <div fxFlex="50" fxLayoutAlign="end">
-                            <span class="mat-h3"> {{bank.ConfiguredMemoryClockSpeed}}
+                            <span class="mat-h3" data-cy="bankMaxClockSpeed"> {{bank.ConfiguredMemoryClockSpeed}}
                                 ({{bank.MaxMemorySpeed}}) Mhz</span>
                         </div>
                         <div fxFlex="50">
                             <p>Serial No.:</p>
                         </div>
                         <div fxFlex="50" fxLayoutAlign="end">
-                            <span class="mat-h3"> {{bank.SerialNumber}}</span>
+                            <span class="mat-h3" data-cy="bankSerialNumber"> {{bank.SerialNumber}}</span>
                         </div>
 
                     </div>
