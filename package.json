@@ -33,8 +33,8 @@
     "rxjs": "~6.6.7",
     "tslib": "^2.3.1",
     "@open-amt-cloud-toolkit/ui-toolkit-angular": "^2.0.2",
-    "xterm": "^4.14.1",
-    "zone.js": "~0.11.4"
+    "xterm": "^4.18.0",
+    "zone.js": "~0.11.5"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.14",
@@ -54,7 +54,7 @@
     "eslint-config-standard": "^16.0.3",
     "eslint-config-standard-with-typescript": "^21.0.1",
     "eslint-plugin-import": "2.25.4",
-    "eslint-plugin-jsdoc": "37.7.0",
+    "eslint-plugin-jsdoc": "37.7.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-promise": "^5.2.0",
@@ -62,7 +62,7 @@
     "jasmine-spec-reporter": "~7.0.0",
     "karma": "~6.3.16",
     "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage": "~2.1.0",
+    "karma-coverage": "~2.2.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.7.0",
     "protractor": "~7.0.0",
